@@ -1,0 +1,20 @@
+version: '3.1'
+
+services:
+
+  prometheus:
+    image: prom/prometheus
+    volumes:
+      - ./prometheus.yml:/prometheus.yml
+    command:
+      - '--config.file=/prometheus.yml'
+    ports:
+      - 9090:9090
+    restart: always
+
+  ccloud_exporter:
+    build: ./
+    environment:
+      CCLOUD_API_KEY: ${CCLOUD_API_KEY}
+      CCLOUD_API_SECRET: ${CCLOUD_API_SECRET}
+    command: ["-cluster", "${CCLOUD_CLUSTER}"]
