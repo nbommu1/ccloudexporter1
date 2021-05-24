@@ -67,7 +67,7 @@ func (cc KafkaCCloudCollector) CollectMetricsForRule(wg *sync.WaitGroup, ch chan
 	timer.ObserveDuration()
 	ch <- durationMetric
 	if err != nil {
-		log.WithError(err).WithFields(log.Fields{"optimizedQuery": optimizedQuery, "response": response}).Errorln("Query did not succeed")
+		log.WithError(err).WithFields(log.Fields{"response": response}).Errorln("Query did not succeed")
 		return
 	}
 	log.WithFields(log.Fields{"response": response}).Traceln("Response has been received")
